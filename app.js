@@ -4,5 +4,12 @@ function sortear() {
     let de = parseInt(document.getElementById('de').value);
     let ate = parseInt(document.getElementById('ate').value);
 
-    
+    let numeroSorteado = obterNumeroAleatorio(de, ate);
+
+    alert(numeroSorteado);
+}
+
+
+function obterNumeroAleatorio(min, max) {
+    return Math.floor(Math.random() * (max - min +1) + min);
 }
