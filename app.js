@@ -4,9 +4,23 @@ function sortear() {
     let de = parseInt(document.getElementById('de').value);
     let ate = parseInt(document.getElementById('ate').value);
 
-    let numeroSorteado = obterNumeroAleatorio(de, ate);
+    let numeroSorteados = []; 
+    let numero;
 
-    alert(numeroSorteado);
+    for (let i =0; i < quantidade; i ++) {
+        numero = obterNumeroAleatorio(de, ate);
+
+        while(numeroSorteados.includes(numero)) {
+            numero= obterNumeroAleatorio(de, ate);
+        }
+        
+        numeroSorteados.push(numero);
+    }
+
+    let resultado = document.getElementById('resultado');
+    resultado.innerHTML =  `<label class="texto__paragrafo">Números sorteados:  ${numeroSorteados}</label>`;
+
+    
 }
 
 
