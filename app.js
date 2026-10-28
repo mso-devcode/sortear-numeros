@@ -4,26 +4,54 @@ function sortear() {
     let de = parseInt(document.getElementById('de').value);
     let ate = parseInt(document.getElementById('ate').value);
 
-    let numeroSorteados = []; 
-    let numero;
+    const quantidadeNumeros = (ate - de) + 1;
 
-    for (let i =0; i < quantidade; i ++) {
-        numero = obterNumeroAleatorio(de, ate);
+    if (isNaN(quantidade) || isNaN(de) || isNaN(ate)) {
+   
+        alert('Preencha todos os campos!');
+       //          5                4   
+    } else if (de >= ate || quantidade > quantidadeNumeros ) {
+        alert('Erro: Preechimento do intervalo errado e Quantidade!');
+    }    
+    else {    
+        let numeroSorteados = []; 
+        let numero;
 
-        while(numeroSorteados.includes(numero)) {
-            numero= obterNumeroAleatorio(de, ate);
+        for (let i =0; i < quantidade; i ++) {
+            numero = obterNumeroAleatorio(de, ate);
+
+            while(numeroSorteados.includes(numero)) {
+                numero= obterNumeroAleatorio(de, ate);
+            }
+            numeroSorteados.push(numero);
         }
-        
-        numeroSorteados.push(numero);
+
+        let resultado = document.getElementById('resultado');
+        resultado.innerHTML =  `<label class="texto__paragrafo">Números sorteados:  ${numeroSorteados}</label>`;
+        alterarStatusBotao();
     }
-
-    let resultado = document.getElementById('resultado');
-    resultado.innerHTML =  `<label class="texto__paragrafo">Números sorteados:  ${numeroSorteados}</label>`;
-
-    
 }
 
+function alterarStatusBotao() {
+    let botao = document.getElementById('btn-reiniciar');
+
+    if (botao.classList.contains('container__botao-desabilitado')) {
+           botao.classList.remove('container__botao-desabilitado');
+           botao.classList.add('container__botao'); 
+    } else {
+        botao.classList.remove('container__botao');
+        botao.classList.add('container__botao-desabilitado');
+    }
+
+}
 
 function obterNumeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min +1) + min);
+}
+
+function reiniciar() {
+    document.getElementById('quantidade').value = "";
+    document.getElementById('de').value = "";
+    document.getElementById('ate').value = "";
+    alterarStatusBotao();
 }
